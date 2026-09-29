@@ -1,0 +1,274 @@
+/* PLUMBING_V 1 — reset tecnico canonico (Toolkit/boilerplate/plumbing.css) */
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ══════════ SCORRANO PARRUCCHIERI — «Alla terza generazione.» ══════════
+   Via Ambrogio Binda 33, dal 1995. L'identità è la loro insegna: «Scorrano» in un corsivo a pennello bordeaux, la «S» fatta da una
+   ciocca verde-bianca-rossa, e sotto «LO STILE ITALIANO» in una fascia tricolore; e il salone: bianco, specchi ovali neri, fasce verde
+   e rossa sui muri. La firma è una treccia a tre capi in uno di quegli specchi (_scp_firma.mjs): un capo per generazione. */
+:root {
+  --bianco: #FFFFFF;
+  --carta: #F6F2EC;
+  --inchiostro: #1F1D1B;
+  --grigio: #5E5A55;
+  --riga: #E3DDD4;
+  --nero: #141414;
+  --bordeaux: #7A1B2B;
+  --verde: #0B7A3E;
+  --rosso: #B11F2C;
+  --verde-capo: #0E8C45;
+  --bianco-capo: #F4F1EA;
+  --rosso-capo: #D02A38;
+  --tricolore: linear-gradient(90deg, #0E8C45 0 33.34%, #F4F1EA 33.34% 66.67%, #D02A38 66.67%);
+  --f-marchio: 'Mr Dafoe', 'Brush Script MT', cursive;
+  --f-titoli: 'Taviraj', Georgia, 'Times New Roman', serif;
+  --f-testo: 'Ubuntu Sans', 'Segoe UI', Arial, sans-serif;
+  --gutter: 16px;
+  --testata-h: 66px;
+}
+@media (min-width: 760px) { :root { --gutter: 24px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; color: var(--inchiostro); font: 400 1.03rem/1.62 var(--f-testo); background: var(--bianco); }
+a { color: var(--bordeaux); }
+b, strong { font-weight: 700; }
+em { font-style: italic; }
+.salta { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: #fff; color: var(--inchiostro); font-weight: 700; text-decoration: none; }
+.salta:focus { top: 10px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+section[id] { scroll-margin-top: calc(var(--testata-h) + 14px); }
+.intero { white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--bordeaux); outline-offset: 2px; }
+/* finché i caratteri non arrivano il ripiego è più largo: una parola lunga va a capo invece di uscire (riserva-check, #233) */
+h1, h2, h3, .marchio__nome, .piede__marchio { overflow-wrap: anywhere; }
+
+/* ── la testata: il nome in corsivo e, sotto, la fascia tricolore dell'insegna ── */
+.testata { position: sticky; top: 0; z-index: 50; background: var(--bianco); border-bottom: 1px solid var(--riga); }
+.testata::after { content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 3px; background: var(--tricolore); }
+.testata__dentro { display: flex; align-items: center; gap: 10px; max-width: 1200px; margin: 0 auto; padding: 6px var(--gutter); }
+.marchio { display: flex; align-items: baseline; gap: 8px; min-width: 0; flex: 1 1 auto; color: var(--bordeaux); text-decoration: none; }
+.marchio__nome { font: 400 2.1rem/1.1 var(--f-marchio); color: var(--bordeaux); }
+.marchio__sotto { font: 600 .74rem/1 var(--f-testo); letter-spacing: .2em; text-transform: uppercase; color: var(--grigio); }
+.voci { display: none; }
+.testata__azioni { margin-left: auto; display: flex; align-items: center; gap: 6px; flex: none; }
+.lingue { display: flex; }
+.lingue button { min-width: 34px; min-height: 38px; padding: 0 5px; border: 1px solid #C8C1B6; background: transparent; color: var(--inchiostro); font: 600 .82rem var(--f-testo); cursor: pointer; }
+.lingue button + button { border-left: 0; }
+.lingue button.is-on { background: var(--nero); border-color: var(--nero); color: #fff; }
+.chiama { display: none; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 20px; background: var(--bordeaux); color: #fff; font: 600 .98rem var(--f-testo); text-decoration: none; }
+.chiama:hover { background: var(--nero); }
+.burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; border: 1px solid #C8C1B6; border-radius: 22px; background: transparent; cursor: pointer; }
+.burger span { display: block; height: 2px; background: var(--inchiostro); transition: transform .2s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-mobile { position: fixed; top: calc(var(--testata-h) + 3px); left: 0; right: 0; z-index: 49; max-height: calc(100vh - var(--testata-h)); overflow-y: auto; padding: 10px var(--gutter) 22px; background: var(--bianco); border-bottom: 1px solid var(--riga); box-shadow: 0 10px 24px rgba(20, 20, 20, .16); }
+.menu-mobile a { display: block; padding: 12px 2px 10px; border-bottom: 1px solid #EFEAE3; color: var(--inchiostro); font: 600 1.5rem/1.2 var(--f-titoli); text-decoration: none; }
+.menu-mobile__tel { display: flex !important; justify-content: center; gap: 8px; margin-top: 14px; border: 0 !important; border-radius: 24px; background: var(--bordeaux); color: #fff !important; font: 600 1.08rem var(--f-testo) !important; }
+
+/* ── l'apertura ── */
+.apertura { display: grid; gap: 34px; max-width: 1200px; margin: 0 auto; padding: 38px var(--gutter) 54px; }
+.apertura__sopra { margin: 0; font: 600 .86rem/1.5 var(--f-testo); letter-spacing: .14em; text-transform: uppercase; color: var(--grigio); }
+.apertura__titolo { margin: 12px 0 18px; font: 600 clamp(2.9rem, 1.7rem + 4.4vw, 5.2rem)/1.02 var(--f-titoli); letter-spacing: -.01em; }
+.apertura__titolo em { color: var(--bordeaux); font-weight: 500; }
+.apertura__frase { max-width: 32em; margin: 0 0 20px; font-size: 1.12rem; }
+.voti { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+.voto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0; }
+.voto__n { font: 600 2rem/1 var(--f-titoli); color: var(--inchiostro); }
+.voto__su { color: var(--grigio); font-size: .98rem; }
+/* le stelle: una maschera SVG ripetuta e un gradiente fino a --voto (niente testo tagliato, #232) */
+.stelle { --piena: var(--bordeaux); --vuota: #DDD5CA; display: inline-block; width: 5.5em; height: 1.05em; font-size: 1.02rem; vertical-align: -.1em; background: linear-gradient(90deg, var(--piena) calc(var(--voto, 1) * 100%), var(--vuota) 0); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 21'%3E%3Cpath d='M11 1l2.9 6.2 6.8.8-5 4.6 1.3 6.7L11 16l-6 3.3 1.3-6.7-5-4.6 6.8-.8z'/%3E%3C/svg%3E") 0 0 / 1.1em 1.05em repeat-x; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 21'%3E%3Cpath d='M11 1l2.9 6.2 6.8.8-5 4.6 1.3 6.7L11 16l-6 3.3 1.3-6.7-5-4.6 6.8-.8z'/%3E%3C/svg%3E") 0 0 / 1.1em 1.05em repeat-x; }
+.stato { display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0; font-weight: 600; color: var(--grigio); }
+.stato::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: currentColor; opacity: .45; flex: none; }
+.stato.is-aperto { color: var(--verde); }
+.stato.is-aperto::before { background: var(--verde); opacity: 1; box-shadow: 0 0 0 3px rgba(11, 122, 62, .2); }
+.apertura__azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.bottone { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 22px; border: 1.5px solid var(--inchiostro); border-radius: 26px; background: transparent; color: var(--inchiostro); font: 600 1rem/1.1 var(--f-testo); text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
+.bottone:hover { background: var(--nero); border-color: var(--nero); color: #fff; }
+.bottone--pieno { border-color: var(--bordeaux); background: var(--bordeaux); color: #fff; }
+.bottone--pieno:hover { border-color: var(--nero); background: var(--nero); }
+
+/* ── la firma: la treccia nello specchio ovale ── */
+.apertura__firma { display: grid; justify-items: center; }
+.treccia { display: grid; gap: 22px; margin: 0; justify-items: center; align-items: center; }
+.treccia__svg { display: block; width: 100%; max-width: 250px; height: auto; overflow: visible; -webkit-user-select: none; user-select: none; }
+.treccia__specchio { fill: var(--nero); stroke: #2E2E2E; stroke-width: 4; }
+.treccia__filo { fill: none; stroke: #4A4A4A; stroke-width: 1.2; }
+.capo__bordo { fill: none; stroke-width: 29; stroke-linecap: round; }
+.capo__pieno { fill: none; stroke-width: 25; stroke-linecap: round; }
+.capo__riga { fill: none; stroke-width: 1.2; stroke-linecap: round; opacity: .8; }
+.lobo__forma { stroke-width: 1.6; stroke-linejoin: round; }
+.lobo__riga { fill: none; stroke-width: 1.1; stroke-linecap: round; opacity: .85; }
+.treccia__fermaglio { fill: var(--bordeaux); }
+.nastro__presa { fill: transparent; }
+.nastro__fascia { fill: var(--bordeaux); stroke: #4A0F1A; stroke-width: 1.2; }
+.nastro__luce { stroke: rgba(255, 255, 255, .35); stroke-width: 2; stroke-linecap: round; }
+.capo { transition: opacity .2s; }
+/* un nome toccato: il suo capo resta pieno, gli altri si attenuano */
+.treccia__svg[data-evidenza="A"] .capo:not(.capo--A), .treccia__svg[data-evidenza="B"] .capo:not(.capo--B), .treccia__svg[data-evidenza="C"] .capo:not(.capo--C) { opacity: .22; }
+.js .treccia__nastro { cursor: ns-resize; }
+.js .treccia__nastro:focus-visible { outline: none; }
+.js .treccia__nastro:focus-visible .nastro__fascia { stroke: #fff; stroke-width: 2.5; }
+/* il dito sul nastro: la pagina non scorre (touch-action sul <g> per chi lo guarda, touchstart non passivo nel codice, #242) */
+.treccia__nastro { touch-action: none; }
+/* la legenda: un capo per generazione */
+.capi { width: 100%; max-width: 340px; margin: 0; padding: 0; list-style: none; }
+.capo-voce + .capo-voce { margin-top: 6px; }
+.capo-voce__corpo { display: grid; grid-template-columns: 12px minmax(0, 1fr); column-gap: 14px; padding: 8px 12px 8px 10px; border-radius: 8px; transition: background .15s; }
+.capo-voce__segno { grid-row: 1 / span 2; width: 12px; height: 100%; min-height: 40px; border-radius: 6px; }
+.capo-voce--A .capo-voce__segno { background: var(--verde-capo); }
+.capo-voce--B .capo-voce__segno { background: var(--bianco-capo); box-shadow: inset 0 0 0 1.5px #A89F90; }
+.capo-voce--C .capo-voce__segno { background: var(--rosso-capo); }
+.capo-voce__nome { font: 600 1.18rem/1.25 var(--f-titoli); }
+.capo-voce__testo { font-size: .96rem; line-height: 1.4; color: var(--grigio); }
+.capo-voce__corpo[role="button"] { cursor: pointer; }
+.capo-voce__corpo[role="button"]:hover { background: var(--carta); }
+.capo-voce__corpo[aria-pressed="true"] { background: var(--carta); box-shadow: inset 0 0 0 1.5px var(--riga); }
+.treccia__nota { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 12px; margin: 18px 0 0; font-size: .96rem; color: var(--grigio); text-align: center; }
+.treccia__rifai { min-height: 40px; padding: 0 16px; border: 1.5px solid var(--inchiostro); border-radius: 20px; background: var(--bianco); color: var(--inchiostro); font: 600 .95rem var(--f-testo); cursor: pointer; }
+.treccia__rifai:hover { background: var(--nero); color: #fff; }
+.treccia__didascalia { margin: 8px 0 0; font: italic 500 1.02rem/1.4 var(--f-titoli); color: var(--grigio); text-align: center; }
+/* senza JS la treccia non si scioglie e i nomi non accendono niente: invito e bottone nascosti col loro posto (#240) */
+.no-js .treccia__invito, .no-js .treccia__rifai { visibility: hidden; }
+
+/* ── i capitoli ── */
+.capitolo { max-width: 1120px; margin: 0 auto; padding: 72px var(--gutter) 68px; }
+.capitolo--carta { max-width: none; padding-left: max(var(--gutter), calc((100% - 1120px) / 2)); padding-right: max(var(--gutter), calc((100% - 1120px) / 2)); background: var(--carta); }
+.etichetta { display: flex; align-items: center; gap: 10px; margin: 0; font: 600 .82rem/1.3 var(--f-testo); letter-spacing: .2em; text-transform: uppercase; color: var(--grigio); }
+.etichetta::before { content: ''; width: 36px; height: 3px; background: var(--tricolore); flex: none; }
+.capitolo__titolo { max-width: 18em; margin: 12px 0 28px; font: 600 clamp(2.1rem, 1.35rem + 2.6vw, 3.4rem)/1.08 var(--f-titoli); text-wrap: balance; }
+.capitolo__sotto { max-width: 38em; margin: -12px 0 28px; font-size: 1.06rem; color: var(--grigio); }
+figure { margin: 0; }
+.foto { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.foto img { display: block; width: 100%; height: auto; }
+
+/* il salone */
+.salone { display: grid; gap: 26px; align-items: start; }
+.salone__foto img { border-radius: 6px; }
+.salone figcaption, .lavoro figcaption { margin-top: 8px; font-size: .95rem; color: var(--grigio); }
+.salone__testo p { margin: 0 0 16px; font-size: 1.08rem; }
+.citazione { margin: 24px 0 0; padding: 18px 0 0 22px; border-left: 3px solid var(--bordeaux); }
+.citazione__testo { margin: 0 0 10px; font: italic 500 clamp(1.5rem, 1.1rem + 1.3vw, 2rem)/1.2 var(--f-titoli); }
+.citazione__chi { margin: 0; font-size: .95rem; color: var(--grigio); }
+.citazione__chi b { color: var(--inchiostro); }
+.servizi { display: grid; gap: 14px; margin: 36px 0 0; padding: 0; list-style: none; }
+.servizio { padding: 18px 20px 16px; background: var(--bianco); border-radius: 8px; border-top: 3px solid var(--bordeaux); }
+.servizio__nome { margin: 0 0 6px; font: 600 1.4rem/1.2 var(--f-titoli); }
+.servizio p { margin: 0; color: var(--grigio); }
+
+/* i lavori */
+.lavori { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; margin: 0; padding: 0; list-style: none; }
+.lavoro .foto img { border-radius: 6px; box-shadow: 0 0 0 1.5px var(--nero); }
+.lavoro figcaption { font: italic 500 1.05rem/1.3 var(--f-titoli); color: var(--inchiostro); }
+
+/* dicono */
+.voti--centro { margin: -8px 0 30px; }
+.recensioni { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; align-items: start; }
+.recensione { position: relative; padding: 34px 22px 18px; background: var(--bianco); border-radius: 8px; }
+.recensione::before { content: '\201C'; position: absolute; left: 18px; top: -6px; font: 600 4rem/1 var(--f-titoli); color: var(--bordeaux); }
+.recensione__testo { margin: 0 0 12px; font-size: 1.02rem; line-height: 1.58; }
+.recensione__chi { margin: 0; font-size: .9rem; color: var(--grigio); }
+.recensione__chi b { display: block; font-size: 1rem; color: var(--inchiostro); }
+.dicono__nota { max-width: 46em; margin: 26px 0 0; font-size: .95rem; color: var(--grigio); }
+.dicono__nota a { font-weight: 600; }
+
+/* orari e dove */
+.orari { display: grid; gap: 30px; align-items: start; }
+.settimana-box { padding: 20px 22px 16px; background: var(--carta); border-radius: 8px; }
+.stato--settimana { margin: 0 0 10px; font-size: .98rem; }
+.settimana { width: 100%; border-collapse: collapse; }
+.settimana th, .settimana td { padding: 9px 4px 8px; border-bottom: 1px solid var(--riga); font: 400 1.02rem/1.3 var(--f-testo); text-align: left; }
+.settimana td { text-align: right; font-weight: 600; white-space: nowrap; }
+.settimana tr.chiuso th, .settimana tr.chiuso td { color: var(--grigio); font-weight: 400; }
+.settimana tr.is-today th { font-weight: 700; color: var(--bordeaux); }
+.settimana tr.is-today td { color: var(--bordeaux); }
+.settimana__nota { margin: 12px 0 0; font-size: .95rem; color: var(--grigio); }
+.mappa { margin-bottom: 18px; overflow: hidden; border-radius: 8px; border: 1px solid var(--riga); }
+.mappa iframe { display: block; width: 100%; height: 320px; border: 0; }
+.indirizzo { margin: 0 0 18px; }
+.indirizzo div { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--riga); }
+.indirizzo dt { font: 600 .8rem/1.6 var(--f-testo); letter-spacing: .14em; text-transform: uppercase; color: var(--grigio); }
+.indirizzo dd { margin: 0; font-weight: 500; }
+.orari__azioni { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+
+/* domande */
+.domande { max-width: 820px; }
+.domande details { border-bottom: 1px solid var(--riga); }
+.domande summary { padding: 14px 4px 12px; font: 600 1.3rem/1.25 var(--f-titoli); cursor: pointer; }
+.domande details p { max-width: 46em; margin: 0 0 16px; padding: 0 4px; }
+
+/* ── la chiusura: il nero degli specchi ── */
+.piede { position: relative; background: var(--nero); color: #EDE9E3; }
+.piede::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--tricolore); }
+.piede__dentro { max-width: 900px; margin: 0 auto; padding: 48px var(--gutter) 96px; text-align: center; }
+.piede__marchio { margin: 0 0 14px; }
+.piede__marchio .marchio__nome { font-size: 3rem; color: #FFFFFF; }
+.piede__marchio .marchio__sotto { color: #CFC8BE; }
+.piede__dove, .piede__orario, .piede__legale { margin: 0 0 8px; }
+.piede__legale { font-size: .95rem; color: #CFC8BE; }
+.piede a { color: #FFFFFF; }
+.piede__cred { max-width: 54em; margin: 18px auto 10px; font-size: .95rem; color: #CFC8BE; }
+.piede__su { font-weight: 600; }
+
+/* ── reveal (plumbing) ── */
+.js .reveal { opacity: 0; }
+.js .reveal.in-view { opacity: 1; }
+html:not(.js) .reveal { opacity: 1; }
+.reduced-motion .reveal { opacity: 1 !important; }
+
+/* ── la barra e la lightbox ── */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: 1fr 1fr; background: var(--nero); transform: translateY(100%); transition: transform .25s; }
+.action-bar.is-visible { transform: translateY(0); }
+.action-bar a { display: flex; align-items: center; justify-content: center; min-height: 54px; color: #fff; font: 600 1.06rem var(--f-testo); text-decoration: none; }
+.action-bar a:first-child { background: var(--bordeaux); }
+#lightbox { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(20, 20, 20, .94); }
+#lightbox[hidden] { display: none !important; }
+#lightbox img { width: auto; max-width: min(1400px, 100%); max-height: 88vh; }
+#lightboxClose { position: absolute; top: 14px; right: 16px; width: 48px; height: 48px; border: 1px solid rgba(255, 255, 255, .6); border-radius: 50%; background: transparent; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+
+/* ── le larghezze ── */
+@media (max-width: 359px) {
+  .testata__dentro { gap: 6px; }
+  .marchio__nome { font-size: 1.8rem; }
+  .marchio__sotto { display: none; }
+  .lingue button { min-width: 31px; }
+  .lavori { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 560px) {
+  .chiama { display: inline-flex; }
+  .servizi { grid-template-columns: 1fr 1fr; }
+  .lavori { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 18px; }
+}
+@media (min-width: 760px) {
+  .action-bar { display: none; }
+  .piede__dentro { padding-bottom: 48px; }
+  .treccia { grid-template-columns: auto minmax(0, 1fr); gap: 26px; justify-items: start; }
+  .salone { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 38px; }
+  .recensioni { grid-template-columns: 1fr 1fr; gap: 22px 20px; }
+  .orari { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 38px; }
+}
+@media (min-width: 1040px) {
+  :root { --testata-h: 70px; }
+  .testata__dentro { gap: 16px; }
+  .marchio { flex: none; }
+  .voci { display: flex; flex-wrap: wrap; gap: 4px 26px; margin-left: 34px; }
+  .voci a { padding: 4px 1px 2px; color: var(--inchiostro); font: 500 1.1rem var(--f-titoli); text-decoration: none; }
+  .voci a:hover, .voci a[aria-current="true"] { color: var(--bordeaux); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+  .burger { display: none; }
+  .apertura { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-top: 34px; }
+  .servizi { grid-template-columns: repeat(4, 1fr); }
+  .recensioni { grid-template-columns: repeat(3, 1fr); }
+}
+
+/*TRECCIA*/
+/* generato da _scp_firma.mjs: lo stato d'attesa della treccia (i tre capi sciolti, il nastro in alto, nessun passaggio) */
+.treccia__sciolta { display: none; }
+.firma-attesa .treccia__sciolta { display: inline; }
+.firma-attesa .treccia__punte { display: none; }
+.firma-attesa .lobo { opacity: 0; }
+.firma-attesa #trecciaNastro { transform: translate(0px, -378px); }
+/*/TRECCIA*/
